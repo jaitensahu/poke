@@ -1,0 +1,32 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.pokeContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.pokeCard {
+    width: 100%;
+    max-width: 230px;
+    border: 1px solid black;
+    background-color: antiquewhite;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.query{
+    margin-top: 20px;
+    padding: 20px 0;
+    text-align: center;
+}
