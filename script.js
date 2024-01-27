@@ -7,15 +7,20 @@
 let inp = document.querySelector("input");
 let pokeContainer = document.querySelector(".pokeContainer");
 let allCards = [];
+let duplicateArray = [];
 
 // Execute only when Ui Loads
 async function onLoad() {
+  //  console.log(allCards);
   for (let i = 1; i <= 200; i++) {
     allCards.push(await getPokeData(i));
   }
   allCards.sort((a, b) => {
     return a.id - b.id;
   });
+  // console.log("allcards",allCards);
+  duplicateArray = [...allCards];
+  console.log(duplicateArray);
   showData(allCards);
 }
 onLoad();
@@ -26,11 +31,14 @@ async function getPokeData(id) {
   let result = await response.json();
   return result;
 }
+// -------------------------------------------------------------------------------
+
+// ----------------- Serch Pokemon-----------------------------------------------
 
 inp.addEventListener("input", () => {
   console.log(inp.value);
-  console.log(allCards[0].card);
-  let filteredarr = allCards.filter((card) => {
+  // console.log(allCards[0].card);
+  let filteredarr = duplicateArray.filter((card) => {
     return card.name.includes(inp.value);
   });
   showData(filteredarr);
@@ -76,27 +84,25 @@ function appendType(typeArray) {
     let opt = document.createElement("option");
     // opt.setAttribute("value", )
     opt.innerText = element.name;
-   selectedType.appendChild(opt);
+    selectedType.appendChild(opt);
   });
 }
 fetchType();
 
 // -----------------------------------------------------------------------------------------
 
-
 // ----------------------------Filter By Type -----------------------------------------------
 
 let filter = document.querySelector(".filter");
 
 filter.addEventListener("click", () => {
-  console.log(selectedType.value, allCards[0].types);
-  let mappedArr=allCards.map((card) => {
-    return card.types;
-  })
-
-  // mappedArr.
-})
-
-function filterByType() {
-  
-}
+  let filteredArr = allCards.filter((card) => {
+    let str = "";
+    card.types.forEach((type) => {
+      str += type.type.name + " ";
+    });
+    return str.includes(selectedType.value);
+  });
+  duplicateArray = [...filteredArr];
+  showData(duplicateArray);
+});
